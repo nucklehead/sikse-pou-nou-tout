@@ -69,6 +69,14 @@
         <ion-list-header>
           Account
         </ion-list-header>
+        <ion-item>
+            <ion-thumbnail item-start>
+              <img [src]="'https://api.adorable.io/avatars/285/' + userData.getId() + '.png'">
+            </ion-thumbnail>
+            <h2>My Neighbor Totoro</h2>
+            <p>Hayao Miyazaki • 1988</p>
+            <button ion-button clear item-end>View</button>
+        </ion-item>
         <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
           <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
           {{p.title}}
