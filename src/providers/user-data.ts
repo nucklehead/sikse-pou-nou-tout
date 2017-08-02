@@ -42,7 +42,8 @@ export class UserData {
 
         this.http.post(apiUrl+'login', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
-              if(res.json().success){
+              if(res.json().loggedIn){
+                console.log("I am logged so waht");
                 this.storage.set(this.HAS_LOGGED_IN, true);
                 this.setUsername(credentials.Username);
                 this.setToken(res.json().token);
@@ -50,16 +51,31 @@ export class UserData {
                 resolve(true);
               }
               else{
-                  resolve(false);
+                console.log("I didnt work");
+                console.log(JSON.stringify(res.json()));
+                resolve(false);
               }
           });
     });
   };
 
-  signup(username: string): void {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.events.publish('user:signup');
+  signup(credentials: UserOptions) {
+    return new Promise(resolve => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(apiUrl+'account', JSON.stringify(credentials), {headers: headers})
+        .subscribe(res => {
+          if(res.json().ID ){
+            this.login(credentials);
+            this.events.publish('user:signup');
+            resolve(true);
+          }
+          else{
+            resolve(false);
+          }
+        });
+    });
   };
 
   logout(): void {
@@ -82,23 +98,23 @@ export class UserData {
   setToken(token: string): void {
     this.storage.set('token', token);
   };
-  
+
   getToken(): Promise<string> {
     return this.storage.get('token').then((value) => {
       return value;
     });
   };
-  
+
   setId(id: string): void {
     this.storage.set('id', id);
   };
-  
+
   getId(): Promise<string> {
     return this.storage.get('id').then((value) => {
       return value;
     });
   };
-  
+
   hasLoggedIn(): Promise<boolean> {
     return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
       return value === true;

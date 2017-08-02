@@ -6,11 +6,10 @@ import { App, NavController, ModalController, ViewController } from 'ionic-angul
 @Component({
   template: `
     <ion-list>
-      <button ion-item (click)="close('http://ionicframework.com/docs/v2/getting-started')">Learn Ionic</button>
-      <button ion-item (click)="close('http://ionicframework.com/docs/v2')">Documentation</button>
-      <button ion-item (click)="close('http://showcase.ionicframework.com')">Showcase</button>
+      <button ion-item (click)="close('http://ionicframework.com/docs/v2/getting-started')">Page facebook</button>
+      <button ion-item (click)="close('http://ionicframework.com/docs/v2')">Sit</button>
       <button ion-item (click)="close('https://github.com/ionic-team/ionic')">GitHub Repo</button>
-      <button ion-item (click)="support()">Support</button>
+      <button ion-item (click)="support()">Sipo</button>
     </ion-list>
   `
 })
