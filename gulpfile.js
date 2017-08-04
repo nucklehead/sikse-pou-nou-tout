@@ -1,7 +1,7 @@
 // `npm install --save replace`
 var gulp = require('gulp');
 var replace = require('replace');
-var replaceFiles = ['./src/providers/user-data\.ts'];
+var replaceFiles = ['./src/providers/user-data\.ts', './src/providers/conference-data\.ts'];
 
 gulp.task('add-proxy', function() {
   return replace({

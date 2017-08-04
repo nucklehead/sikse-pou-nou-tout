@@ -2,7 +2,7 @@
 import json
 import requests
 
-inputFile = "init-data.json"
+inputFile = "initData.json"
 baseApi = "https://sikse-pou-nou-tout.herokuapp.com/"
 
 
