@@ -5,7 +5,7 @@ var replaceFiles = ['./src/providers/user-data\.ts', './src/providers/conference
 
 gulp.task('add-proxy', function() {
   return replace({
-    regex: "https://sikse-pou-nou-tout.herokuapp.com/",
+    regex: "https://sikse-pou-nou-tout.herokuapp.com",
     replacement: "/api",
     paths: replaceFiles,
     recursive: false,
@@ -16,7 +16,7 @@ gulp.task('add-proxy', function() {
 gulp.task('remove-proxy', function() {
   return replace({
     regex: "/api",
-    replacement: "https://sikse-pou-nou-tout.herokuapp.com/",
+    replacement: "https://sikse-pou-nou-tout.herokuapp.com",
     paths: replaceFiles,
     recursive: false,
     silent: false,
