@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "ionic-app-scripts build",
-    "start": "ionic-app-scripts serve -p $PORT",
+    "start": "node server.js",
     "clean": "ionic-app-scripts clean",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "npm run build",
