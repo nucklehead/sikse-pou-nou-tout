@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { Http, Headers } from '@angular/http';
+import { UserOptions } from '../interfaces/user-options';
+
+let apiUrl = '/api/';
 
 
 @Injectable()
@@ -11,6 +15,7 @@ export class UserData {
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
   constructor(
+    public http: Http,
     public events: Events,
     public storage: Storage
   ) {}
@@ -30,21 +35,53 @@ export class UserData {
     }
   };
 
-  login(username: string): void {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.events.publish('user:login');
+  login(credentials: UserOptions) {
+      return new Promise(resolve => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        this.http.post(apiUrl+'login', JSON.stringify(credentials), {headers: headers})
+          .subscribe(res => {
+              if(res.json().loggedIn){
+                console.log("I am logged so waht");
+                this.storage.set(this.HAS_LOGGED_IN, true);
+                this.setUsername(credentials.Username);
+                this.setToken(res.json().token);
+                this.events.publish('user:login');
+                resolve(true);
+              }
+              else{
+                console.log("I didnt work");
+                console.log(JSON.stringify(res.json()));
+                resolve(false);
+              }
+          });
+    });
   };
 
-  signup(username: string): void {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.events.publish('user:signup');
+  signup(credentials: UserOptions) {
+    return new Promise(resolve => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(apiUrl+'account', JSON.stringify(credentials), {headers: headers})
+        .subscribe(res => {
+          if(res.json().ID ){
+            this.login(credentials);
+            this.events.publish('user:signup');
+            resolve(true);
+          }
+          else{
+            resolve(false);
+          }
+        });
+    });
   };
 
   logout(): void {
     this.storage.remove(this.HAS_LOGGED_IN);
     this.storage.remove('username');
+    this.storage.remove('token');
     this.events.publish('user:logout');
   };
 
@@ -54,6 +91,26 @@ export class UserData {
 
   getUsername(): Promise<string> {
     return this.storage.get('username').then((value) => {
+      return value;
+    });
+  };
+
+  setToken(token: string): void {
+    this.storage.set('token', token);
+  };
+
+  getToken(): Promise<string> {
+    return this.storage.get('token').then((value) => {
+      return value;
+    });
+  };
+
+  setId(id: string): void {
+    this.storage.set('id', id);
+  };
+
+  getId(): Promise<string> {
+    return this.storage.get('id').then((value) => {
       return value;
     });
   };

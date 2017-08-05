@@ -21,7 +21,7 @@ export interface ActionSheetButton {
   icon?: string;
   cssClass?: string;
   handler?: () => boolean|void;
-};
+}
 
 @Component({
   selector: 'page-speaker-list',
@@ -40,17 +40,22 @@ export class SpeakerListPage {
   ) {}
 
   ionViewDidLoad() {
-    this.confData.getSpeakers().subscribe((speakers: any[]) => {
-      this.speakers = speakers;
+    this.confData.getSpeakers().subscribe(res => {
+      this.speakers = Object.keys(res.json()).map(key => res.json()[key]);
+      this.speakers.forEach(speaker => this.getSpeakerSesions(speaker));
     });
   }
 
+  getSpeakerSesions(speaker: any){
+    this.confData.getSpeakerSessions(speaker);
+  }
+
   goToSessionDetail(session: any) {
-    this.navCtrl.push(SessionDetailPage, { sessionId: session.id });
+    this.navCtrl.push(SessionDetailPage, { sessionId: session.ID });
   }
 
   goToSpeakerDetail(speaker: any) {
-    this.navCtrl.push(SpeakerDetailPage, { speakerId: speaker.id });
+    this.navCtrl.push(SpeakerDetailPage, { speakerId: speaker.ID });
   }
 
   goToSpeakerTwitter(speaker: any) {
@@ -92,20 +97,20 @@ export class SpeakerListPage {
     let mode = this.config.get('mode');
 
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Contact ' + speaker.name,
+      title: 'Contact ' + speaker.FirstName + '' + speaker.LastName,
       buttons: [
         {
-          text: `Email ( ${speaker.email} )`,
+          text: `Email ( ${speaker.Email} )`,
           icon: mode !== 'ios' ? 'mail' : null,
           handler: () => {
-            window.open('mailto:' + speaker.email);
+            window.open('mailto:' + speaker.Email);
           }
         } as ActionSheetButton,
         {
-          text: `Call ( ${speaker.phone} )`,
+          text: `Call ( ${speaker.Phone} )`,
           icon: mode !== 'ios' ? 'call' : null,
           handler: () => {
-            window.open('tel:' + speaker.phone);
+            window.open('tel:' + speaker.Phone);
           }
         } as ActionSheetButton
       ]

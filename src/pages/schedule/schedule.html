@@ -6,10 +6,10 @@
 
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
       <ion-segment-button value="all">
-        All
+        Tout
       </ion-segment-button>
       <ion-segment-button value="favorites">
-        Favorites
+        Saw renmen
       </ion-segment-button>
     </ion-segment>
 
@@ -24,7 +24,7 @@
     <ion-searchbar color="primary"
                    [(ngModel)]="queryText"
                    (ionInput)="updateSchedule()"
-                   placeholder="Search">
+                   placeholder="Chache">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -40,27 +40,27 @@
 
       <ion-item-divider sticky>
         <ion-label>
-          {{group.time}}
+          {{group.Name}}
         </ion-label>
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
+      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.OptionID | lowercase" [hidden]="session.hide">
 
         <button ion-item (click)="goToSessionDetail(session)">
-          <h3>{{session.name}}</h3>
+          <h3>{{session.Title}}</h3>
           <p>
-            {{session.timeStart}} &mdash;
-            {{session.timeEnd}}:
-            {{session.location}}
+            {{session.Date.toLocaleString()}}<br>
+            {{session.Description}}<br>
+            Delmas
           </p>
         </button>
 
         <ion-item-options>
           <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
+            Ajoute nan saw renmen
           </button>
-          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-            Remove
+          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Retire l nan sa ou renmen yo')" *ngIf="segment === 'favorites'">
+            Retire
           </button>
         </ion-item-options>
 
@@ -71,7 +71,7 @@
   </ion-list>
 
   <ion-list-header [hidden]="shownSessions > 0">
-      No Sessions Found
+      Pa gen klass
   </ion-list-header>
 
   <ion-fab bottom right #fab>

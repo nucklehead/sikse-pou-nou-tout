@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Speakers</ion-title>
+    <ion-title>Entevenan</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -18,20 +18,20 @@
             <ion-card-header>
               <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">
                 <ion-avatar item-start>
-                  <img [src]="speaker.profilePic" alt="Speaker profile pic">
+                  <text-avatar [text]="speaker.FirstName + ' ' + speaker.LastName"></text-avatar>
                 </ion-avatar>
-                {{speaker.name}}
+                {{speaker.FirstName}} {{speaker.LastName}}
               </button>
             </ion-card-header>
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
-                  <h3>{{session.name}}</h3>
+                <button ion-item *ngFor="let session of speaker.Event" (click)="goToSessionDetail(session)">
+                  <h3>{{session.Title}}</h3>
                 </button>
 
                 <button ion-item (click)="goToSpeakerDetail(speaker)">
-                  <h3>About {{speaker.name}}</h3>
+                  <h3>About {{speaker.FirstName}} {{speaker.LastName}}</h3>
                 </button>
               </ion-list>
             </ion-card-content>

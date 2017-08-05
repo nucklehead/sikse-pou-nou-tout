@@ -26,13 +26,11 @@ export class SchedulePage {
   // the List and not a reference to the element
   @ViewChild('scheduleList', { read: List }) scheduleList: List;
 
-  dayIndex = 0;
   queryText = '';
   segment = 'all';
   excludeTracks: any = [];
   shownSessions: any = [];
   groups: any = [];
-  confDate: string;
 
   constructor(
     public alertCtrl: AlertController,
@@ -46,7 +44,7 @@ export class SchedulePage {
   ) {}
 
   ionViewDidLoad() {
-    this.app.setTitle('Schedule');
+    this.app.setTitle('Ore');
     this.updateSchedule();
   }
 
@@ -54,9 +52,14 @@ export class SchedulePage {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
 
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
+    this.confData.getTimeline(this.queryText, this.excludeTracks, this.segment).subscribe((subscription: any) => {
+      subscription.subscribe((data: any) =>{
+        console.log("timeline from schedule");
+        console.log(JSON.stringify(data));
+        this.shownSessions = data.shownSessions;
+        this.groups = data.groups;
+      });
+
     });
   }
 
@@ -77,7 +80,7 @@ export class SchedulePage {
     // go to the session detail page
     // and pass in the session data
 
-    this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.id, name: sessionData.name });
+    this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.ID, name: sessionData.Title });
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {
@@ -92,7 +95,7 @@ export class SchedulePage {
 
       // create an alert instance
       let alert = this.alertCtrl.create({
-        title: 'Favorite Added',
+        title: 'Li ajoute',
         buttons: [{
           text: 'OK',
           handler: () => {
@@ -110,10 +113,10 @@ export class SchedulePage {
   removeFavorite(slidingItem: ItemSliding, sessionData: any, title: string) {
     let alert = this.alertCtrl.create({
       title: title,
-      message: 'Would you like to remove this session from your favorites?',
+      message: 'Eske ou vle retire sa nan sa ou renmen yo?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Soti',
           handler: () => {
             // they clicked the cancel button, do not remove the session
             // close the sliding item and hide the option buttons
@@ -121,7 +124,7 @@ export class SchedulePage {
           }
         },
         {
-          text: 'Remove',
+          text: 'Retire',
           handler: () => {
             // they want to remove this session from their favorites
             this.user.removeFavorite(sessionData.name);
@@ -139,7 +142,7 @@ export class SchedulePage {
 
   openSocial(network: string, fab: FabContainer) {
     let loading = this.loadingCtrl.create({
-      content: `Posting to ${network}`,
+      content: `Poste sou ${network}`,
       duration: (Math.random() * 1000) + 500
     });
     loading.onWillDismiss(() => {
@@ -149,21 +152,17 @@ export class SchedulePage {
   }
 
   doRefresh(refresher: Refresher) {
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
+    this.confData.getTimeline(this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
+      console.log(JSON.stringify(data));
       this.shownSessions = data.shownSessions;
       this.groups = data.groups;
+      refresher.complete();
 
-      // simulate a network request that would take longer
-      // than just pulling from out local json file
-      setTimeout(() => {
-        refresher.complete();
-
-        const toast = this.toastCtrl.create({
-          message: 'Sessions have been updated.',
-          duration: 3000
-        });
-        toast.present();
-      }, 1000);
+      const toast = this.toastCtrl.create({
+        message: 'Klas yo a jour.',
+        duration: 3000
+      });
+      toast.present();
     });
   }
 }

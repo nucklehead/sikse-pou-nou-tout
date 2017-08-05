@@ -10,7 +10,7 @@ import { ConferenceData } from '../../providers/conference-data';
   templateUrl: 'schedule-filter.html'
 })
 export class ScheduleFilterPage {
-  tracks: Array<{name: string, isChecked: boolean}> = [];
+  tracks: Array<{name: string, isChecked: boolean, id: string}> = [];
 
   constructor(
     public confData: ConferenceData,
@@ -18,14 +18,14 @@ export class ScheduleFilterPage {
     public viewCtrl: ViewController
   ) {
     // passed in array of track names that should be excluded (unchecked)
-    let excludedTrackNames = this.navParams.data;
+    let excludedTracks: any[] = this.navParams.data;
 
-    this.confData.getTracks().subscribe((trackNames: string[]) => {
-
-      trackNames.forEach(trackName => {
+    this.confData.getOptions().subscribe((options: any) => {
+      Object.keys(options).map(key => options[key]).forEach((option: any) => {
         this.tracks.push({
-          name: trackName,
-          isChecked: (excludedTrackNames.indexOf(trackName) === -1)
+          name: option.Name,
+          isChecked: (excludedTracks.findIndex(track => track.id === option.ID) === -1),
+          id: option.ID
         });
       });
 
@@ -41,8 +41,8 @@ export class ScheduleFilterPage {
 
   applyFilters() {
     // Pass back a new array of track names to exclude
-    let excludedTrackNames = this.tracks.filter(c => !c.isChecked).map(c => c.name);
-    this.dismiss(excludedTrackNames);
+    let excludedTracks = this.tracks.filter(c => !c.isChecked);
+    this.dismiss(excludedTracks);
   }
 
   dismiss(data?: any) {

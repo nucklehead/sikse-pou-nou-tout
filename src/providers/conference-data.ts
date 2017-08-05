@@ -8,10 +8,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
+let apiUrl = '/api/';
 
 @Injectable()
 export class ConferenceData {
   data: any;
+  sessions: any[];
+  options: any[];
+
 
   constructor(public http: Http, public user: UserData) { }
 
@@ -63,31 +67,48 @@ export class ConferenceData {
     return this.data;
   }
 
-  getTimeline(dayIndex: number, queryText = '', excludeTracks: any[] = [], segment = 'all') {
-    return this.load().map((data: any) => {
-      let day = data.schedule[dayIndex];
-      day.shownSessions = 0;
-
-      queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
-      let queryWords = queryText.split(' ').filter(w => !!w.trim().length);
-
-      day.groups.forEach((group: any) => {
-        group.hide = true;
-
-        group.sessions.forEach((session: any) => {
-          // check if this session should show or not
-          this.filterSession(session, queryWords, excludeTracks, segment);
-
-          if (!session.hide) {
-            // if this session is not hidden then this group should show
-            group.hide = false;
-            day.shownSessions++;
-          }
+  getTimeline(queryText = '', excludeTracks: any[] = [], segment = 'all') {
+    let data: any = {};
+    return this.getSessions().map((sessions: any) => {
+      console.log("getSessions");
+      console.log(JSON.stringify(sessions));
+      data["shownSessions"] = 0;
+      let groups: any[] = [];
+      return this.getOptions().map((options: any) => {
+        console.log("options");
+        console.log(JSON.stringify(options));
+        Object.keys(options).map(key => options[key]).forEach((option: any) => {
+          let group: any = {};
+          group["Name"] = option.Name;
+          let matchingKeys = Object.keys(sessions).filter(sessionKey => sessions[sessionKey].OptionID === option.ID);
+          group["sessions"] = matchingKeys.map(key => sessions[key]);
+          groups.push(group);
         });
+        data["groups"] = groups;
 
+
+        queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
+        let queryWords = queryText.split(' ').filter(w => !!w.trim().length);
+        data.groups.forEach((group: any) => {
+          group["hide"] = true;
+          group.sessions.forEach((session: any) => {
+            session.Date = new Date(session.Date);
+            // check if this session should show or not
+            this.filterSession(session, queryWords, excludeTracks, segment);
+            if (!session.hide) {
+              // if this session is not hidden then this group should show
+              group.hide = false;
+              data.shownSessions++;
+            }
+          });
+
+        });
+        console.log("I am data");
+        console.log(JSON.stringify(data));
+
+
+        return data;
       });
-
-      return day;
     });
   }
 
@@ -97,7 +118,7 @@ export class ConferenceData {
     if (queryWords.length) {
       // of any query word is in the session name than it passes the query test
       queryWords.forEach((queryWord: string) => {
-        if (session.name.toLowerCase().indexOf(queryWord) > -1) {
+        if (session.Title.toLowerCase().indexOf(queryWord) > -1) {
           matchesQueryText = true;
         }
       });
@@ -108,10 +129,10 @@ export class ConferenceData {
 
     // if any of the sessions tracks are not in the
     // exclude tracks then this session passes the track test
-    let matchesTracks = false;
-    session.tracks.forEach((trackName: string) => {
-      if (excludeTracks.indexOf(trackName) === -1) {
-        matchesTracks = true;
+    let matchesTracks = true;
+      excludeTracks.forEach(track => {
+        if(session.OptionID === track.ID ){
+        matchesTracks = false;
       }
     });
 
@@ -119,7 +140,7 @@ export class ConferenceData {
     // then this session does not pass the segment test
     let matchesSegment = false;
     if (segment === 'favorites') {
-      if (this.user.hasFavorite(session.name)) {
+      if (this.user.hasFavorite(session.Title)) {
         matchesSegment = true;
       }
     } else {
@@ -127,23 +148,28 @@ export class ConferenceData {
     }
 
     // all tests must be true if it should not be hidden
-    session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
+
+    session["hide"] = !(matchesQueryText && matchesTracks && matchesSegment);
+
   }
 
   getSpeakers() {
-    return this.load().map((data: any) => {
-      return data.speakers.sort((a: any, b: any) => {
-        let aName = a.name.split(' ').pop();
-        let bName = b.name.split(' ').pop();
-        return aName.localeCompare(bName);
-      });
+    return this.http.get(apiUrl+'presenter');
+  }
+
+  getSessions() {
+    return  this.http.get(apiUrl+'event').map(res => res.json())
+  }
+
+  getSpeakerSessions(speaker: any){
+    this.getSessions().subscribe((sessions: any) => {
+      let matchingKeys = Object.keys(sessions).filter(sessionKey => sessions[sessionKey].Presenter === speaker.ID);
+      speaker["Event"] = matchingKeys.map(key => sessions[key]);
     });
   }
 
-  getTracks() {
-    return this.load().map((data: any) => {
-      return data.tracks.sort();
-    });
+  getOptions() {
+    return this.http.get(apiUrl+'option').map(res => res.json())
   }
 
   getMap() {
