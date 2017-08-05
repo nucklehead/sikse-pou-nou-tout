@@ -8,6 +8,7 @@
     "url": "https://github.com/nucklehead/sikse-pou-nou-tout.git"
   },
   "scripts": {
+    "postinstall": "npm run build",
     "build": "ionic-app-scripts build",
     "start": "node server.js",
     "clean": "ionic-app-scripts clean",
