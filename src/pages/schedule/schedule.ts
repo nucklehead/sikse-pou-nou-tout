@@ -26,13 +26,11 @@ export class SchedulePage {
   // the List and not a reference to the element
   @ViewChild('scheduleList', { read: List }) scheduleList: List;
 
-  dayIndex = 0;
   queryText = '';
   segment = 'all';
   excludeTracks: any = [];
   shownSessions: any = [];
   groups: any = [];
-  confDate: string;
 
   constructor(
     public alertCtrl: AlertController,
@@ -54,9 +52,14 @@ export class SchedulePage {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
 
-    this.confData.getTimeline(this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
+    this.confData.getTimeline(this.queryText, this.excludeTracks, this.segment).subscribe((subscription: any) => {
+      subscription.subscribe((data: any) =>{
+        console.log("timeline from schedule");
+        console.log(JSON.stringify(data));
+        this.shownSessions = data.shownSessions;
+        this.groups = data.groups;
+      });
+
     });
   }
 
@@ -150,6 +153,7 @@ export class SchedulePage {
 
   doRefresh(refresher: Refresher) {
     this.confData.getTimeline(this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
+      console.log(JSON.stringify(data));
       this.shownSessions = data.shownSessions;
       this.groups = data.groups;
       refresher.complete();

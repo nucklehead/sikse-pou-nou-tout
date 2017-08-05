@@ -28,6 +28,7 @@ import { SupportPage } from '../pages/support/support';
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
+import { TextAvatarDirective } from '../directives/text-avatar/text-avatar';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { UserData } from '../providers/user-data';
     SpeakerListPage,
     TabsPage,
     TutorialPage,
-    SupportPage
+    SupportPage,
+    TextAvatarDirective
   ],
   imports: [
     BrowserModule,

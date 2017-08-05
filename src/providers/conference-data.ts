@@ -69,14 +69,19 @@ export class ConferenceData {
 
   getTimeline(queryText = '', excludeTracks: any[] = [], segment = 'all') {
     let data: any = {};
-    return this.getSessions().map((sessions: any[]) => {
+    return this.getSessions().map((sessions: any) => {
+      console.log("getSessions");
+      console.log(JSON.stringify(sessions));
       data["shownSessions"] = 0;
       let groups: any[] = [];
-      return this.getOptions().map((options: any[]) => {
-        options.forEach(option => {
+      return this.getOptions().map((options: any) => {
+        console.log("options");
+        console.log(JSON.stringify(options));
+        Object.keys(options).map(key => options[key]).forEach((option: any) => {
           let group: any = {};
           group["Name"] = option.Name;
-          group["Sessions"] = sessions.filter(session => session.OptionID === option.ID);
+          let matchingKeys = Object.keys(sessions).filter(sessionKey => sessions[sessionKey].OptionID === option.ID);
+          group["sessions"] = matchingKeys.map(key => sessions[key]);
           groups.push(group);
         });
         data["groups"] = groups;
@@ -84,14 +89,12 @@ export class ConferenceData {
 
         queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
         let queryWords = queryText.split(' ').filter(w => !!w.trim().length);
-
         data.groups.forEach((group: any) => {
           group["hide"] = true;
-
           group.sessions.forEach((session: any) => {
+            session.Date = new Date(session.Date);
             // check if this session should show or not
             this.filterSession(session, queryWords, excludeTracks, segment);
-
             if (!session.hide) {
               // if this session is not hidden then this group should show
               group.hide = false;
@@ -100,6 +103,9 @@ export class ConferenceData {
           });
 
         });
+        console.log("I am data");
+        console.log(JSON.stringify(data));
+
 
         return data;
       });
@@ -123,10 +129,10 @@ export class ConferenceData {
 
     // if any of the sessions tracks are not in the
     // exclude tracks then this session passes the track test
-    let matchesTracks = false;
+    let matchesTracks = true;
       excludeTracks.forEach(track => {
         if(session.OptionID === track.ID ){
-        matchesTracks = true;
+        matchesTracks = false;
       }
     });
 
@@ -142,7 +148,9 @@ export class ConferenceData {
     }
 
     // all tests must be true if it should not be hidden
+
     session["hide"] = !(matchesQueryText && matchesTracks && matchesSegment);
+
   }
 
   getSpeakers() {
@@ -154,8 +162,9 @@ export class ConferenceData {
   }
 
   getSpeakerSessions(speaker: any){
-    this.getSessions().subscribe((sessions: any[]) => {
-      speaker["Event"] = sessions.filter(session => session.Presenter = speaker.ID);
+    this.getSessions().subscribe((sessions: any) => {
+      let matchingKeys = Object.keys(sessions).filter(sessionKey => sessions[sessionKey].Presenter === speaker.ID);
+      speaker["Event"] = matchingKeys.map(key => sessions[key]);
     });
   }
 

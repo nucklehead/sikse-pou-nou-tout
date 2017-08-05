@@ -44,14 +44,14 @@
         </ion-label>
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="let session of group.Sessions" #slidingItem [attr.track]="session.OptionID | lowercase" [hidden]="session.hide">
+      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.OptionID | lowercase" [hidden]="session.hide">
 
         <button ion-item (click)="goToSessionDetail(session)">
           <h3>{{session.Title}}</h3>
           <p>
-            {{session.Date}}
-            {{session.Description}}
-            {{session.Location}}
+            {{session.Date.toLocaleString()}}<br>
+            {{session.Description}}<br>
+            Delmas
           </p>
         </button>
 
@@ -59,7 +59,7 @@
           <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
             Ajoute nan saw renmen
           </button>
-          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Retire\'l nan sa ou renmen yo')" *ngIf="segment === 'favorites'">
+          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Retire l nan sa ou renmen yo')" *ngIf="segment === 'favorites'">
             Retire
           </button>
         </ion-item-options>

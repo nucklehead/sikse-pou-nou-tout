@@ -18,7 +18,7 @@
             <ion-card-header>
               <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">
                 <ion-avatar item-start>
-                  <img [src]="'https://github.com/identicons/' + speaker.FirstName.replace(' ', '') + speaker.LastName.replace(' ', '')" alt="Speaker profile pic">
+                  <text-avatar [text]="speaker.FirstName + ' ' + speaker.LastName"></text-avatar>
                 </ion-avatar>
                 {{speaker.FirstName}} {{speaker.LastName}}
               </button>
