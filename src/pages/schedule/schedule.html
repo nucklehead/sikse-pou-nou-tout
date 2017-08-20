@@ -47,10 +47,10 @@
       <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.OptionID | lowercase" [hidden]="session.hide">
 
         <button ion-item (click)="goToSessionDetail(session)">
-          <h3>{{session.Title}}</h3>
+          <h3>{{session.title}}</h3>
           <p>
-            {{session.Date.toLocaleString()}}<br>
-            {{session.Description}}<br>
+            {{session.date.toLocaleString()}}<br>
+            {{session.description}}<br>
             Delmas
           </p>
         </button>

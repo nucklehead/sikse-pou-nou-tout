@@ -66,7 +66,7 @@ export class UserData {
 
       this.http.post(apiUrl+'account', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
-          if(res.json().ID ){
+          if(res.json().id ){
             this.login(credentials);
             this.events.publish('user:signup');
             resolve(true);

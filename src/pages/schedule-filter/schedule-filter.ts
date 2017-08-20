@@ -24,8 +24,8 @@ export class ScheduleFilterPage {
       Object.keys(options).map(key => options[key]).forEach((option: any) => {
         this.tracks.push({
           name: option.Name,
-          isChecked: (excludedTracks.findIndex(track => track.id === option.ID) === -1),
-          id: option.ID
+          isChecked: (excludedTracks.findIndex(track => track.id === option.id) === -1),
+          id: option.id
         });
       });
 

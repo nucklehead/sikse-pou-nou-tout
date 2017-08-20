@@ -51,11 +51,11 @@ export class SpeakerListPage {
   }
 
   goToSessionDetail(session: any) {
-    this.navCtrl.push(SessionDetailPage, { sessionId: session.ID });
+    this.navCtrl.push(SessionDetailPage, { sessionId: session.id });
   }
 
   goToSpeakerDetail(speaker: any) {
-    this.navCtrl.push(SpeakerDetailPage, { speakerId: speaker.ID });
+    this.navCtrl.push(SpeakerDetailPage, { speakerId: speaker.id });
   }
 
   goToSpeakerTwitter(speaker: any) {
@@ -97,20 +97,20 @@ export class SpeakerListPage {
     let mode = this.config.get('mode');
 
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Contact ' + speaker.FirstName + '' + speaker.LastName,
+      title: 'Contact ' + speaker.firstName + '' + speaker.lastName,
       buttons: [
         {
-          text: `Email ( ${speaker.Email} )`,
+          text: `Email ( ${speaker.email} )`,
           icon: mode !== 'ios' ? 'mail' : null,
           handler: () => {
-            window.open('mailto:' + speaker.Email);
+            window.open('mailto:' + speaker.email);
           }
         } as ActionSheetButton,
         {
-          text: `Call ( ${speaker.Phone} )`,
+          text: `Call ( ${speaker.phone} )`,
           icon: mode !== 'ios' ? 'call' : null,
           handler: () => {
-            window.open('tel:' + speaker.Phone);
+            window.open('tel:' + speaker.phone);
           }
         } as ActionSheetButton
       ]
