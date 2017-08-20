@@ -1,4 +1,4 @@
-# Ionic Conference Application
+# Ionic Conference Application (needs update. this is from template)
 
 This is purely a demo of Ionic with TypeScript. It is still in development.
 
