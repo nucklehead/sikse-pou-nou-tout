@@ -4,8 +4,8 @@ import { IonicModule, Platform } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Http, HttpModule, BaseRequestOptions, Response, ResponseOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 
 import { ConferenceApp } from './app.component';
