@@ -9,7 +9,7 @@ baseApi = "https://sikse-pou-nou-tout.herokuapp.com/"
 
 with open(inputFile) as file:
     data = json.loads(file.read())
-    headers = {"Content-Type": "application/json"}
+    headers = {"Content-Type": "json/encode/decode"}
 
 
     for presenter in data["presenter"]:
@@ -19,9 +19,9 @@ with open(inputFile) as file:
             res = requests.post(baseApi + "option", data = json.dumps(option), headers = headers)
             savedOption = res.json()
             for event in option["event"]:
-                event["OptionID"] = savedOption["ID"]
-                event["Speaker"] = savedPresenter["ID"]
-                event["Date"] = datetime.strptime(event["Date"], "%d/%m/%Y").isoformat() + "Z"
+                event["optionID"] = savedOption["id"]
+                event["speaker"] = savedPresenter["id"]
+                event["date"] = datetime.strptime(event["date"], "%d/%m/%Y").isoformat() + "Z"
                 res = requests.post(baseApi + "event", data = json.dumps(event), headers = headers)
 
     for sponsor in data["sponsor"]:
@@ -32,5 +32,5 @@ with open(inputFile) as file:
         res = requests.post(baseApi + "account", data = json.dumps(account), headers = headers)
         savedAccount = res.json()
         for comment in account["comment"]:
-            comment["User"] = savedAccount["ID"]
+            comment["user"] = savedAccount["id"]
             res = requests.post(baseApi + "comment", data = json.dumps(comment), headers = headers)
