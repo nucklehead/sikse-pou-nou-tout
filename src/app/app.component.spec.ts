@@ -1,4 +1,4 @@
-import { inject, async, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 
 import { IonicModule, Platform } from 'ionic-angular';
 
