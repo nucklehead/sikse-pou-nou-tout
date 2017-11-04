@@ -41,7 +41,7 @@ export class SpeakerListPage {
 
   ionViewDidLoad() {
     this.confData.getSpeakers().subscribe(res => {
-      this.speakers = Object.keys(res.json()).map(key => res.json()[key]);
+      this.speakers = res.json();
       this.speakers.forEach(speaker => this.getSpeakerSesions(speaker));
     });
   }

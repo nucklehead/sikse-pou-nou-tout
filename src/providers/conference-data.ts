@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
-let apiUrl = '/api/';
+let apiUrl = '/server/api/';
 
 @Injectable()
 export class ConferenceData {
@@ -77,11 +77,10 @@ export class ConferenceData {
       return this.getOptions().map((options: any) => {
         console.log("options");
         console.log(JSON.stringify(options));
-        Object.keys(options).map(key => options[key]).forEach((option: any) => {
+        options.forEach((option: any) => {
           let group: any = {};
-          group["Name"] = option.Name;
-          let matchingKeys = Object.keys(sessions).filter(sessionKey => sessions[sessionKey].OptionID === option.ID);
-          group["sessions"] = matchingKeys.map(key => sessions[key]);
+          group["Name"] = option.name;
+          group["sessions"] = options.filter((session: any) => session.optionID === option.ID);
           groups.push(group);
         });
         data["groups"] = groups;
@@ -92,7 +91,7 @@ export class ConferenceData {
         data.groups.forEach((group: any) => {
           group["hide"] = true;
           group.sessions.forEach((session: any) => {
-            session.Date = new Date(session.Date);
+            session.date = new Date(session.date);
             // check if this session should show or not
             this.filterSession(session, queryWords, excludeTracks, segment);
             if (!session.hide) {
@@ -118,7 +117,7 @@ export class ConferenceData {
     if (queryWords.length) {
       // of any query word is in the session name than it passes the query test
       queryWords.forEach((queryWord: string) => {
-        if (session.Title.toLowerCase().indexOf(queryWord) > -1) {
+        if (session.title.toLowerCase().indexOf(queryWord) > -1) {
           matchesQueryText = true;
         }
       });
@@ -131,7 +130,7 @@ export class ConferenceData {
     // exclude tracks then this session passes the track test
     let matchesTracks = true;
       excludeTracks.forEach(track => {
-        if(session.OptionID === track.ID ){
+        if(session.optionID === track.ID ){
         matchesTracks = false;
       }
     });
@@ -140,7 +139,7 @@ export class ConferenceData {
     // then this session does not pass the segment test
     let matchesSegment = false;
     if (segment === 'favorites') {
-      if (this.user.hasFavorite(session.Title)) {
+      if (this.user.hasFavorite(session.title)) {
         matchesSegment = true;
       }
     } else {
@@ -163,8 +162,7 @@ export class ConferenceData {
 
   getSpeakerSessions(speaker: any){
     this.getSessions().subscribe((sessions: any) => {
-      let matchingKeys = Object.keys(sessions).filter(sessionKey => sessions[sessionKey].Presenter === speaker.ID);
-      speaker["Event"] = matchingKeys.map(key => sessions[key]);
+      speaker["Event"] = sessions.filter((session: any) => session.presenter === speaker.ID);
     });
   }
 
