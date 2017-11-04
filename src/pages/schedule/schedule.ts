@@ -80,7 +80,7 @@ export class SchedulePage {
     // go to the session detail page
     // and pass in the session data
 
-    this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.ID, name: sessionData.Title });
+    this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.id, name: sessionData.title });
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {

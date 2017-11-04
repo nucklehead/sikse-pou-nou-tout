@@ -1,115 +1,115 @@
 {
   "presenter": [
     {
-      "FirstName": "Max Guybert",
-      "LastName": "Lyron",
-      "Twitter": "@nuklehead",
-      "About": "My name is",
-      "Location": {},
-      "Email": "abd@123.com",
-      "Phone": "987-654-3210",
+      "firstName": "Max Guybert",
+      "lastName": "Lyron",
+      "twitter": "@nuklehead",
+      "about": "My name is",
+      "location": "",
+      "email": "abd@123.com",
+      "phone": "987-654-3210",
       "option": [
         {
-          "Name": "Teknoloji",
-          "Description": "Si ou pa jere teknoloji lap jerew.",
+          "name": "Teknoloji",
+          "description": "Si ou pa jere teknoloji lap jerew.",
           "event": [
             {
-              "Title": "Ann pale de teknoloji",
-              "Date": "17/07/2017",
-              "Description": "An gade",
-              "Location": {}
+              "title": "Ann pale de teknoloji",
+              "date": "17/07/2017",
+              "description": "An gade",
+              "location": ""
             }
           ]
         }
       ]
     },
     {
-      "FirstName": "Donald",
-      "LastName": "Hyppolite",
-      "Twitter": "@nuklehead",
-      "About": "My name is",
-      "Location": {},
-      "Email": "abd@123.com",
-      "Phone": "987-654-3210",
+      "firstName": "Donald",
+      "lastName": "Hyppolite",
+      "twitter": "@nuklehead",
+      "about": "My name is",
+      "location": "",
+      "email": "abd@123.com",
+      "phone": "987-654-3210",
       "option": [
         {
-          "Name": "Atelye Travay Pratik",
-          "Description": "Men sa ki atelye",
+          "name": "Atelye Travay Pratik",
+          "description": "Men sa ki atelye",
           "event": [
             {
-              "Title": "Ann pale de bagay atelye",
-              "Date": "17/08/2017",
-              "Description": "An gade",
-              "Location": {}
+              "title": "Ann pale de bagay atelye",
+              "date": "17/08/2017",
+              "description": "An gade",
+              "location": ""
             }
           ]
         }
       ]
     },
     {
-      "FirstName": "Hugo",
-      "LastName": "Emmanuel",
-      "Twitter": "@nuklehead",
-      "About": "My name is",
-      "Location": {},
-      "Email": "abd@123.com",
-      "Phone": "987-654-3210",
+      "firstName": "Hugo",
+      "lastName": "Emmanuel",
+      "twitter": "@nuklehead",
+      "about": "My name is",
+      "location": "",
+      "email": "abd@123.com",
+      "phone": "987-654-3210",
       "option": [
         {
-          "Name": "Ekonomi",
-          "Description": "Men sa ki ekonomi",
+          "name": "Ekonomi",
+          "description": "Men sa ki ekonomi",
           "event": [
             {
-              "Title": "Ann pale de bagay ekonomi",
-              "Date": "17/09/2017",
-              "Description": "An gade",
-              "Location": {}
+              "title": "Ann pale de bagay ekonomi",
+              "date": "17/09/2017",
+              "description": "An gade",
+              "location": ""
             }
           ]
         }
       ]
     },
     {
-      "FirstName": "Pierre Richard",
-      "LastName": "Etienne",
-      "Twitter": "@nuklehead",
-      "About": "My name is",
-      "Location": {},
-      "Email": "abd@123.com",
-      "Phone": "987-654-3210",
+      "firstName": "Pierre Richard",
+      "lastName": "Etienne",
+      "twitter": "@nuklehead",
+      "about": "My name is",
+      "location": "",
+      "email": "abd@123.com",
+      "phone": "987-654-3210",
       "option": [
         {
-          "Name": "Vann",
-          "Description": "Men sa ki vann",
+          "name": "Vann",
+          "description": "Men sa ki vann",
           "event": [
             {
-              "Title": "Ann pale de bagay vann",
-              "Date": "17/10/2017",
-              "Description": "An gade",
-              "Location": {}
+              "title": "Ann pale de bagay vann",
+              "date": "17/10/2017",
+              "description": "An gade",
+              "location": ""
             }
           ]
         }
       ]
     },
     {
-      "FirstName": "James",
-      "LastName": "Myrthil",
-      "Twitter": "@nuklehead",
-      "About": "My name is",
-      "Location": {},
-      "Email": "abd@123.com",
-      "Phone": "987-654-3210",
+      "firstName": "James",
+      "lastName": "Myrthil",
+      "twitter": "@nuklehead",
+      "about": "My name is",
+      "location": "",
+      "email": "abd@123.com",
+      "phone": "987-654-3210",
       "option": [
         {
-          "Name": "Oryantasyon Pwofesyonel",
-          "Description": "Men sa ki Oryantasyon Pwofesyonel",
+          "name": "Oryantasyon Pwofesyonel",
+          "description": "Men sa ki Oryantasyon Pwofesyonel",
           "event": [
             {
-              "Title": "Ann pale de bagay Oryantasyon Pwofesyonel",
-              "Date": "17/11/2017",
-              "Description": "An gade",
-              "Location": {}
+              "title": "Ann pale de bagay Oryantasyon Pwofesyonel",
+              "date": "17/11/2017",
+              "description": "An gade",
+              "location": ""
             }
           ]
         }
@@ -118,41 +118,41 @@
   ],
   "account": [
     {
-      "Username": "nucklehead",
-      "Password": "mopass",
-      "Email": "pierevans@gmail.com",
-      "Phone": "+18574921040",
+      "username": "nucklehead",
+      "password": "mopass",
+      "email": "pierevans@gmail.com",
+      "phone": "+18574921040",
       "comment": [
         {
-          "Content": "Sa bon wi!!!"
+          "content": "Sa bon wi!!!"
         },
         {
-          "Content": "Ki le ap sa ap soti?"
+          "content": "Ki le ap sa ap soti?"
         },
         {
-          "Content": "Ki kote bagay sa ap fet?"
+          "content": "Ki kote bagay sa ap fet?"
         }
       ]
     },
     {
-      "Username": "jean",
-      "Password": "mopass",
-      "Email": "jean_piersaint@gmail.com",
-      "Phone": "+18574921040",
+      "username": "jean",
+      "password": "mopass",
+      "email": "jean_piersaint@gmail.com",
+      "phone": "+18574921040",
       "comment": [
         {
-          "Content": "M renmen mouvman sa ampil wi!"
+          "content": "M renmen mouvman sa ampil wi!"
         },
         {
-          "Content": "Kombyen kob sa ap koute?"
+          "content": "Kombyen kob sa ap koute?"
         }
       ]
     },
     {
-      "Username": "vlad",
-      "Password": "mopass",
-      "Email": "vladimir_occeus@gmail.com",
-      "Phone": "+18574921040",
+      "username": "vlad",
+      "password": "mopass",
+      "email": "vladimir_occeus@gmail.com",
+      "phone": "+18574921040",
       "comment": []
     }
   ],

@@ -21,11 +21,11 @@ export class ScheduleFilterPage {
     let excludedTracks: any[] = this.navParams.data;
 
     this.confData.getOptions().subscribe((options: any) => {
-      Object.keys(options).map(key => options[key]).forEach((option: any) => {
+      options.forEach((option: any) => {
         this.tracks.push({
-          name: option.Name,
-          isChecked: (excludedTracks.findIndex(track => track.id === option.ID) === -1),
-          id: option.ID
+          name: option.name,
+          isChecked: (excludedTracks.findIndex(track => track.id === option.id) === -1),
+          id: option.id
         });
       });
 

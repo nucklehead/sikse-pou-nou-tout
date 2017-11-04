@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 import { UserOptions } from '../interfaces/user-options';
 
-let apiUrl = '/api/';
+let apiUrl = '/server/api/';
 
 
 @Injectable()
@@ -45,7 +45,7 @@ export class UserData {
               if(res.json().loggedIn){
                 console.log("I am logged so waht");
                 this.storage.set(this.HAS_LOGGED_IN, true);
-                this.setUsername(credentials.Username);
+                this.setUsername(credentials.username);
                 this.setToken(res.json().token);
                 this.events.publish('user:login');
                 resolve(true);
@@ -66,7 +66,7 @@ export class UserData {
 
       this.http.post(apiUrl+'account', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
-          if(res.json().ID ){
+          if(res.json().id ){
             this.login(credentials);
             this.events.publish('user:signup');
             resolve(true);

@@ -1,7 +1,7 @@
 var proxy = require('express-http-proxy');
 var express = require('express'),
 app = express();
-app.use('/api', proxy('https://sikse-pou-nou-tout.herokuapp.com/'));
+app.use('/server', proxy('https://floating-beach-22005.herokuapp.com/api/'));
 app.use(express.static('www'));
 app.set('port', process.env.PORT || 9000);
 app.listen(app.get('port'), function () {

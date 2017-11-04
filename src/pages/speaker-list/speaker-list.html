@@ -18,20 +18,20 @@
             <ion-card-header>
               <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">
                 <ion-avatar item-start>
-                  <text-avatar [text]="speaker.FirstName + ' ' + speaker.LastName"></text-avatar>
+                  <text-avatar [text]="speaker.firstName + ' ' + speaker.lastName"></text-avatar>
                 </ion-avatar>
-                {{speaker.FirstName}} {{speaker.LastName}}
+                {{speaker.firstName}} {{speaker.lastName}}
               </button>
             </ion-card-header>
 
             <ion-card-content class="outer-content">
               <ion-list>
                 <button ion-item *ngFor="let session of speaker.Event" (click)="goToSessionDetail(session)">
-                  <h3>{{session.Title}}</h3>
+                  <h3>{{session.title}}</h3>
                 </button>
 
                 <button ion-item (click)="goToSpeakerDetail(speaker)">
-                  <h3>About {{speaker.FirstName}} {{speaker.LastName}}</h3>
+                  <h3>About {{speaker.firstName}} {{speaker.lastName}}</h3>
                 </button>
               </ion-list>
             </ion-card-content>

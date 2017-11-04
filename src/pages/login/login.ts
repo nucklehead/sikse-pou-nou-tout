@@ -16,7 +16,7 @@ import { SignupPage } from '../signup/signup';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  login: UserOptions = { Username: '', Password: '', Email: '', Phone: '' };
+  login: UserOptions = { username: '', password: '', email: '', phone: '' };
   submitted = false;
 
   constructor(public navCtrl: NavController, public userData: UserData) { }
